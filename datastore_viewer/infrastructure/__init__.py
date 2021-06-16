@@ -39,7 +39,8 @@ def get_client(project_name: str, namespace: Optional[str] = None):
 
         return datastore.Client(
             project=project_name,
-            namespace=namespace
+            namespace=namespace,
+            credentials=AnonymousCredentials(),
         )
     except ImportError:
         pass
