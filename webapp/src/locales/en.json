@@ -72,6 +72,7 @@
           "array": "Array",
           "embedded": "Embedded Entity",
           "key": "Key",
+          "geopoint": "GeoPoint",
           "unknown": "Unknown",
           "null": "Null"
         },

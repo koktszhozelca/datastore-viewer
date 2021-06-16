@@ -72,6 +72,7 @@
           "array": "配列",
           "embedded": "埋め込みエンティティ",
           "key": "Key",
+          "geopoint": "GeoPoint",
           "unknown": "Unknown",
           "null": "Null"
         },

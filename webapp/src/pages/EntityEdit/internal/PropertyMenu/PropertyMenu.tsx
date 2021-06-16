@@ -385,6 +385,9 @@ const PropertyItem: React.FC<PropertyProps> = (props) => {
                   <MenuItem className={classes.inputFont} value="Key">
                     {t('EntityEdit.PropertyMenu.PropertyItem.listItem.key')}
                   </MenuItem>
+                  <MenuItem className={classes.inputFont} value="GeoPoint">
+                    {t('EntityEdit.PropertyMenu.PropertyItem.listItem.geopoint')}
+                  </MenuItem>
                   <MenuItem className={classes.inputFont} value="Array">
                     {t('EntityEdit.PropertyMenu.PropertyItem.listItem.array')}
                   </MenuItem>

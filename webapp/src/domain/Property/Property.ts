@@ -62,6 +62,8 @@ export class Property implements PropertyObject {
         return 'Date';
       case 'key':
         return 'Key';
+      case 'geopoint':
+        return 'GeoPoint';
       case 'string':
         return 'String';
       case 'blob':
@@ -83,6 +85,8 @@ export class Property implements PropertyObject {
         return (this.value as Moment).format('YYYY-MM-DD (hh:mm:ss.SSS) z');
       case 'key':
         return (this.value as KeyProperty).toLiteral();
+      case 'geopoint':
+        return `${this.value.latitude},${this.value.longitude}`
       case 'string':
         return this.value;
       case 'array':

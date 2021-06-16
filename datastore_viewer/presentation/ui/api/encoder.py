@@ -5,6 +5,7 @@ from typing import Optional
 
 from google.cloud import datastore
 from google.cloud.datastore import Entity
+from google.cloud.datastore.helpers import GeoPoint
 
 
 class DataStoreEntityJSONEncoder:
@@ -21,6 +22,8 @@ class DataStoreEntityJSONEncoder:
             return "timestamp"
         elif isinstance(prop, datastore.Key):
             return "key"
+        elif isinstance(prop, GeoPoint):
+            return "geopoint"
         elif isinstance(prop, bytes):
             return "blob"
         elif isinstance(prop, list) or isinstance(prop, set):
@@ -42,6 +45,11 @@ class DataStoreEntityJSONEncoder:
 
         if value_type == "key":
             value = property_value.path
+        elif value_type == "geopoint":
+            value = {
+                'latitude': value.latitude,
+                'longitude': value.longitude,
+            }
         elif value_type == "blob":
             value = base64.b64encode(property_value).decode('utf-8')
         elif value_type == "array":
