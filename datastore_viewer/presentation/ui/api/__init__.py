@@ -12,9 +12,11 @@ from datastore_viewer.infrastructure import get_client
 from datastore_viewer.presentation.ui.api.encoder import DataStoreEntityJSONEncoder
 
 
+NAMESPACE = os.environ.get("DATASTORE_NAMESPACE")
+
 class EntityView(flask.views.MethodView):
     def get(self, project_name: str):
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         repository = DatastoreViewerRepository(
             project_name=project_name,
             namespace=namespace,
@@ -39,7 +41,7 @@ class ProjectAPIView(flask.views.MethodView):
         order = flask.request.args.get('order', '')
 
         encoder = DataStoreEntityJSONEncoder()
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         repository = DatastoreViewerRepository(
             project_name=project_name,
             namespace=namespace,
@@ -92,7 +94,7 @@ class ProjectAPIView(flask.views.MethodView):
 
     def delete(self, project_name: str, kind: str):
         data = flask.request.get_json()
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         repository = DatastoreViewerRepository(
             project_name=project_name,
             namespace=namespace,
@@ -112,7 +114,7 @@ class ProjectAPIView(flask.views.MethodView):
 class EntityAPIView(flask.views.MethodView):
     def get(self, project_name: str, kind: str, url_safe_key: str):
         encoder = DataStoreEntityJSONEncoder()
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         repository = DatastoreViewerRepository(
             project_name=project_name,
             namespace=namespace,
@@ -135,7 +137,7 @@ class EntityAPIView(flask.views.MethodView):
 
     def delete(self, project_name: str, kind: str, url_safe_key: str):
         encoder = DataStoreEntityJSONEncoder()
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         repository = DatastoreViewerRepository(
             project_name=project_name,
             namespace=namespace,
@@ -151,7 +153,7 @@ class EntityAPIView(flask.views.MethodView):
 
 class KindAPIView(flask.views.MethodView):
     def get(self, project_name: str):
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         repository = DatastoreViewerRepository(
             project_name=project_name,
             namespace=namespace,
@@ -191,7 +193,7 @@ class SampleDataAPIView(flask.views.MethodView):
     def post(self):
         from google.cloud import datastore
 
-        namespace = flask.request.args.get('namespace')
+        namespace = NAMESPACE or flask.request.args.get('namespace')
         client = get_client(
             project_name=os.environ.get('GOOGLE_CLOUD_PROJECT', ''),
             namespace=namespace,
